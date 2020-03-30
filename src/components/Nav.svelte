@@ -15,9 +15,11 @@
 	}
 
 	function buttonNav() {
-		if (ready) {
-			dispatch('nav', {})
-		}
+		dispatch('nav', {})
+	}
+
+	function buttonSearch(params) {
+		dispatch('search', {})
 	}
 
 	let navbar = false
@@ -48,40 +50,41 @@
 		float: left;
 	}
 
-	nav a {
-		text-decoration: none;
+	nav .menu {
 		padding: 1em 0.5em;
 		display: block;
 		/* font-weight: bold; */
 		font-size: 20px;
 		font-family: ubuntu !important;
+		cursor: pointer;
+		/* margin: 8px auto; */
 	}
 
-	.menu{
-		margin: 8px auto;
+	nav .menu a{
+		text-decoration: none;
 	}
 
-	.color-black{
-		/* color: #343434 !important; */
+	nav .icon{
+		cursor: pointer;
 	}
 
-	.menu span{
+	nav .icon span{
 		display: block;
 		height: 2px;
 		width: 20px;
 		border-radius: 10px;
 	}
 
-	.menu span:nth-child(1){
-		margin-top: -2px;
+	nav .icon span:nth-child(1){
+		margin-top: 4px;
 	}
 
-	.menu span:nth-child(2){
-		margin-top: 6px;
+	nav .icon span:nth-child(2){
+		margin-top: 5px;
 	}
 
-	.menu span:nth-child(3){
-		margin-top: 6px;
+	nav .icon span:nth-child(3){
+		margin-top: 5px;
 	}
 
 	.right{
@@ -109,15 +112,15 @@
 
 <nav style="{navbar ? 'border: none;' : ''}">
 	<ul>
-		<li><a href style="color: {$mode == 'night' ? themeNight[1] : '#343434'} !important">Zeetec</a></li>
-		<li class="right"><a href on:click={(el) => {el.preventDefault()}}>
-			<div class="menu" on:click={() => {setTimeout(() => {navbar = !navbar}, 400); buttonNav()}}>
+		<li><h6 class="menu"><a href="/" style="color: {$mode == 'night' ? themeNight[1] : '#343434'} !important">Zeetec</a></h6></li>
+		<li class="right"><h6 class="menu">
+			<div class="icon" on:click={() => {setTimeout(() => {navbar = !navbar}, 400); buttonNav()}}>
 				<span style="background-color: {$mode == 'night' ? themeNight[1] : '#343434'}"></span>
 				<span style="background-color: {$mode == 'night' ? themeNight[1] : '#343434'}"></span>
 				<span style="background-color: {$mode == 'night' ? themeNight[1] : '#343434'}"></span>
 			</div>
-		</a></li>
-		<li class="right" style="{navbar ? 'display: none;' : ''}"><a href on:click={(el) => {el.preventDefault()}} style="color: {$mode == 'night' ? themeNight[1] : '#343434'} !important" on:click={buttonAdjust}><i class="fas fa-adjust"></i></a></li>
+		</h6></li>
+		<li class="right" style="{navbar ? 'display: none;' : ''}"><h6 class="menu" style="color: {$mode == 'night' ? themeNight[1] : '#343434'}" on:click={buttonAdjust}><i class="fas fa-sun"></i></h6></li>
 	</ul>
 </nav>
 <div class="navbar" style="{navbar ? 'margin-left: 0%;' : ''} background-color: {$mode == 'night' ? `${themeNight[0]};` : 'white;'}">
@@ -126,7 +129,7 @@
 			<a href="/" class="menu" on:click={() => {navbar = false}} style="color: {$mode == 'night' ? themeNight[1] : '#343434'} !important;">Home</a>
 		</li>
 		<li>
-			<a href="/" class="menu" on:click={() => {navbar = false}} style="color: {$mode == 'night' ? themeNight[1] : '#343434'} !important;">Blog</a>
+			<a href="/blog" class="menu" on:click={() => {navbar = false}} style="color: {$mode == 'night' ? themeNight[1] : '#343434'} !important;">Blog</a>
 		</li>
 		<li>
 			<a href="/" class="menu" on:click={() => {navbar = false}} style="color: {$mode == 'night' ? themeNight[1] : '#343434'} !important;">Contact</a>

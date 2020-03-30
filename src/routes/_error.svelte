@@ -31,9 +31,9 @@
 </svelte:head>
 
 <div class="wrap_error">
-	{#if status == 404}
-		 <!-- content here -->
-	{:else}
+	<!-- {#if status != '' && status == 404} -->
+		<!-- content here -->
+	<!-- {:else} -->
 		<h1>{status}</h1>
 
 		<p>{error.message}</p>
@@ -41,5 +41,5 @@
 		{#if dev && error.stack}
 			<pre>{error.stack}</pre>
 		{/if}
-	{/if}
+	<!-- {/if} -->
 </div>

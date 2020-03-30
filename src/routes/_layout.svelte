@@ -4,6 +4,7 @@
 	import {createCookie, getCookie} from '../cookie'
 	import {mode} from '../store'
 	export let segment
+	console.log(segment)
 
 	let changeMode
 	let themeNight = ['#131418', '#f0f8fe']
