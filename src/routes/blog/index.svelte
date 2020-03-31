@@ -1,6 +1,6 @@
 <script context="module">
 	export async function preload(page, session) {
-		const res = await this.fetch('blog?get=blog/data')
+		const res = await this.fetch('blog.json')
 		const posts = await res.json()
 		return {posts}
 	}
@@ -11,8 +11,7 @@
 	import {getContext} from 'svelte'
 
 	export let posts
-	console.log(posts);
-	
+	console.log(posts)
 	let themeNight = getContext('themeNight')
 </script>
 
@@ -77,6 +76,20 @@
 	.post-first{
 		margin-top: 7px;
 	}
+
+	.card .listLabel .label .badge{
+		background-color: transparent;
+		font-weight: 600;
+	}
+
+	.card .listLabel .label{
+		float: right;
+		position: absolute;
+		right: 0;
+		margin-top: -15px;
+		margin-right: 5px;
+		font-size: 14px;
+	}
 </style>
 
 <svelte:head>
@@ -88,33 +101,69 @@
 	<div class="listPost">
 		<div class="container container-post">
 			<h3 class="text-latest">Latest Post</h3>
-			<div class="row card latest-post" style="background-color: {$mode == 'night' ? themeNight[0] : 'white'}; {$mode == 'night' ? 'border: none; border-top: solid 1px white; border-left: solid 1px white;' : ''}">
-				<h6 class="date">Thursday, &nbsp;March 26th 2020&nbsp; (5 days ago)</h6>
-				<h4 class="title" style="color: {$mode == 'night' ? 'white' : 'black'}">Cara Membuat Website</h4>
+			<div class="row card latest-post" style="background-color: {$mode == 'night' ? themeNight[0] : 'white'}; {$mode == 'night' ? 'border-color: white;' : ''}">
+				<h6 class="date">Thursday, &nbsp;March 26 2020&nbsp; (5 days ago)</h6>
+				<h4 class="title" style="color: {$mode == 'night' ? 'white' : 'black'}">Qui consequat sit officia qui consectetur sunt ut excepteur irure dolore consectetur sunt esse.</h4>
+				<div class="row listLabel">
+					<h6 class="label" style="color: {$mode == 'night' ? 'white' : 'black'}">
+						<span class="badge badge-secondary"><a href="blog?label=" style="color: {$mode == 'night' ? 'white' : 'black'}">Website</a></span>
+						&nbsp;
+						<span class="badge badge-secondary"><a href="blog?label=" style="color: {$mode == 'night' ? 'white' : 'black'}">Programing</a></span>
+					</h6>
+				</div>
 			</div>
 			<div class="row">
 				<div class="row line-start-other-post1" style="background-color: {$mode == 'night' ? themeNight[1] : '#343434'}"></div>
 				<h5 class="text-older">Older Post</h5>
 			</div>
 
-			<div class="row card post post-first" style="background-color: {$mode == 'night' ? themeNight[0] : 'white'}; {$mode == 'night' ? 'border: none; border-top: solid 1px white; border-left: solid 1px white;' : ''}">
+			<div class="row card post post-first" style="background-color: {$mode == 'night' ? themeNight[0] : 'white'}; {$mode == 'night' ? 'border-color: white;' : ''}">
 				<h6 class="date">Thursday, &nbsp;March 26th 2020&nbsp; (5 days ago)</h6>
-				<h5 style="color: {$mode == 'night' ? 'white' : 'black'}">Cara Membuat Website</h5>
+				<h5 style="color: {$mode == 'night' ? 'white' : 'black'}">Qui consequat sit officia qui consectetur sunt ut excepteur irure dolore consectetur sunt esse.</h5>
+				<div class="row listLabel">
+					<h6 class="label" style="color: {$mode == 'night' ? 'white' : 'black'}">
+						<span class="badge badge-secondary"><a href="blog?label=" style="color: {$mode == 'night' ? 'white' : 'black'}">Website</a></span>
+						&nbsp;
+						<span class="badge badge-secondary"><a href="blog?label=" style="color: {$mode == 'night' ? 'white' : 'black'}">Programing</a></span>
+					</h6>
+				</div>
 			</div>
 			
-			<div class="row card post" style="background-color: {$mode == 'night' ? themeNight[0] : 'white'}; {$mode == 'night' ? 'border: none; border-top: solid 1px white; border-left: solid 1px white;' : ''}">
+			<div class="row card post" style="background-color: {$mode == 'night' ? themeNight[0] : 'white'}; {$mode == 'night' ? 'border-color: white;' : ''}">
 				<h6 class="date">Thursday, &nbsp;March 26th 2020&nbsp; (5 days ago)</h6>
-				<h5 style="color: {$mode == 'night' ? 'white' : 'black'}">Cara Membuat Website</h5>
+				<h5 style="color: {$mode == 'night' ? 'white' : 'black'}">Qui consequat sit officia qui consectetur sunt ut excepteur irure dolore consectetur sunt esse.</h5>
+				<div class="row listLabel">
+					<h6 class="label" style="color: {$mode == 'night' ? 'white' : 'black'}">
+						<span class="badge badge-secondary"><a href="blog?label=" style="color: {$mode == 'night' ? 'white' : 'black'}">Website</a></span>
+						&nbsp;
+						<span class="badge badge-secondary"><a href="blog?label=" style="color: {$mode == 'night' ? 'white' : 'black'}">Programing</a></span>
+					</h6>
+				</div>
 			</div>
 
-			<div class="row card post" style="background-color: {$mode == 'night' ? themeNight[0] : 'white'}; {$mode == 'night' ? 'border: none; border-top: solid 1px white; border-left: solid 1px white;' : ''}">
+			
+			<div class="row card post" style="background-color: {$mode == 'night' ? themeNight[0] : 'white'}; {$mode == 'night' ? 'border-color: white;' : ''}">
 				<h6 class="date">Thursday, &nbsp;March 26th 2020&nbsp; (5 days ago)</h6>
-				<h5 style="color: {$mode == 'night' ? 'white' : 'black'}">Cara Membuat Website</h5>
+				<h5 style="color: {$mode == 'night' ? 'white' : 'black'}">Qui consequat sit officia qui consectetur sunt ut excepteur irure dolore consectetur sunt esse.</h5>
+				<div class="row listLabel">
+					<h6 class="label" style="color: {$mode == 'night' ? 'white' : 'black'}">
+						<span class="badge badge-secondary"><a href="blog?label=" style="color: {$mode == 'night' ? 'white' : 'black'}">Website</a></span>
+						&nbsp;
+						<span class="badge badge-secondary"><a href="blog?label=" style="color: {$mode == 'night' ? 'white' : 'black'}">Programing</a></span>
+					</h6>
+				</div>
 			</div>
 
-			<div class="row card post" style="background-color: {$mode == 'night' ? themeNight[0] : 'white'}; {$mode == 'night' ? 'border: none; border-top: solid 1px white; border-left: solid 1px white;' : ''}">
+			<div class="row card post" style="background-color: {$mode == 'night' ? themeNight[0] : 'white'}; {$mode == 'night' ? 'border-color: white;' : ''}">
 				<h6 class="date">Thursday, &nbsp;March 26th 2020&nbsp; (5 days ago)</h6>
-				<h5 style="color: {$mode == 'night' ? 'white' : 'black'}">Cara Membuat Website</h5>
+				<h5 style="color: {$mode == 'night' ? 'white' : 'black'}">Qui consequat sit officia qui consectetur sunt ut excepteur irure dolore consectetur sunt esse.</h5>
+				<div class="row listLabel">
+					<h6 class="label" style="color: {$mode == 'night' ? 'white' : 'black'}">
+						<span class="badge badge-secondary"><a href="blog?label=" style="color: {$mode == 'night' ? 'white' : 'black'}">Website</a></span>
+						&nbsp;
+						<span class="badge badge-secondary"><a href="blog?label=" style="color: {$mode == 'night' ? 'white' : 'black'}">Programing</a></span>
+					</h6>
+				</div>
 			</div>
 		</div>
 	</div>

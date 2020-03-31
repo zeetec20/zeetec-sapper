@@ -31,6 +31,8 @@
 		font-weight: 400;
 		padding: 0 1em;
 		font-family: ubuntu !important;
+		/* padding-left: 95px;
+		padding-right: 95px; */
 	}
 
 	nav ul {

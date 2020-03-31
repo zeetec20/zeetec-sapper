@@ -59,6 +59,7 @@
 		position: absolute;
 		min-height: 100%;
 		width: 100%;
+		height: auto;
 	}
 
 	main{
@@ -80,9 +81,11 @@
 		margin-top: 30px;
 		color: black;
 		background-color: yellow;
-		border-radius: 50%;
-		width: 22px;
-		height: 22px;
+		/* border-radius: 50%; */
+		width: 30px;
+		height: 30px;
+		clip-path: circle(50% at 50% 50%);
+		text-align: center;
 	}
 
 	.transition .white{
@@ -119,6 +122,17 @@
 	.animation3{
 		animation: transition 0.8s;
 		animation-delay: 0.4s;
+	}
+
+	.footer{
+		position: relative;
+		margin-top: 50px;
+	}
+
+	.footer p{
+		width: 100%;
+		text-align: center;
+		font-size: 12px;
 	}
 
 	@keyframes transition{
@@ -166,6 +180,10 @@
 			<div class="white animation2" id="transition_white"></div>
 			<div class="black animation1" id="transition_black"></div>
 			<div class="yellow animation3" id="transition_yellow"></div>
+		</div>
+
+		<div class="footer" style="color: {$mode == 'night' ? themeNight[1] : '#343434'};">
+			<p>Built by Firman Justisio Lestari © 2019</p>
 		</div>
 	</main>
 </div>
