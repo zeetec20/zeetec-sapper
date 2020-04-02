@@ -1,6 +1,6 @@
 ---
 slug: 'sample-blog'
-title: 'Sample blog.'
+title: 'Sample blog. 4'
 label: 'website, sapper, programing'
 ---
 

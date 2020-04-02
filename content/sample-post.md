@@ -1,6 +1,7 @@
 ---
 slug: 'sample-blog-uwu'
 title: 'Sample blog uwu.'
+label: 'website, sapper, programing'
 ---
 
 # Sample title

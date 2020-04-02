@@ -2,12 +2,23 @@
 	<title>Zeetec</title>
 </svelte:head>
 
+<script context="module">
+	export async function preload(page, session) {
+		const res = await this.fetch('blog.json')
+		const posts = await res.json()
+		return {posts}
+	}
+</script>
+
 <script>
 	import {onMount, getContext} from 'svelte'
 	import {getCookie} from '../cookie'
 	import {mode} from '../store'
 	import {css} from 'emotion'
 
+	export let posts
+	
+	posts = posts.slice(0, 3)
 	let themeNight = getContext('themeNight')
 	let nameTyping = ''
 	let jobTyping = ''
@@ -63,7 +74,7 @@
 	}
 
 	.recent-post{
-		margin-top: 80px;
+		margin-top: 0px;
 	}
 
 	.recent-post .post{
@@ -138,7 +149,7 @@
 	}
 
 	.container{
-		margin-top: 7%;
+		margin-top: 12%;
 		padding-left: 5%;
 		padding-right: 5%;
 	}
@@ -149,7 +160,6 @@
 		display: block;
 		margin-left: 50px;
 		margin-top: -40px;
-		box-shadow: 0px 0px 10px 50px yellow;
 	}
 
 	.avatar img{
@@ -176,10 +186,10 @@
 			<h3 class="title">Recent Post &nbsp;</h3>
 		</div>
 		<div class="col-lg-12 list-recent-post">
-			<a href="e" class="wrap-post">
+			<a href="blog/{posts[0].slug}" class="wrap-post">
 				<div class="card post first {hover_post}" style="background-color: {$mode == 'night' ? themeNight[0] : '#f1f1f194'}">
-					<h1 class="title">Amet laboris irure officia in esse laborum sit ut deserunt dolor proident sit velit.</h1>
-					<h6 class="date">Thursday, &nbsp;March 26th 2020&nbsp; (5 days ago)</h6>
+					<h1 class="title">{posts[0].title}</h1>
+					<h6 class="date">{posts[0].date}</h6>
 					<div class="row list-label">
 						<h6 class="label">
 							<span class="badge badge-secondary"><a href="blog?label=" style="color: {$mode == 'night' ? themeNight[1] : '#343434'}">Website</a></span>
@@ -190,33 +200,21 @@
 				</div>
 			</a>
 			
-			<a href="e" class="wrap-post">
-				<div class="card post {hover_post}" style="background-color: {$mode == 'night' ? themeNight[0] : '#f1f1f194'}">
-					<h1 class="title">Amet laboris irure officia in esse laborum sit ut deserunt dolor proident sit velit.</h1>
-					<h6 class="date">Thursday, &nbsp;March 26th 2020&nbsp; (5 days ago)</h6>
-					<div class="row list-label">
-						<h6 class="label">
-							<span class="badge badge-secondary"><a href="blog?label=" style="color: {$mode == 'night' ? themeNight[1] : '#343434'}">Website</a></span>
-							&nbsp;
-							<span class="badge badge-secondary"><a href="blog?label=" style="color: {$mode == 'night' ? themeNight[1] : '#343434'}">Programing</a></span>
-						</h6>
+			{#each posts.slice(1,3) as post}
+				<a href="blog/{post.slug}" class="wrap-post">
+					<div class="card post {hover_post}" style="background-color: {$mode == 'night' ? themeNight[0] : '#f1f1f194'}">
+						<h1 class="title">{post.title}</h1>
+						<h6 class="date">{post.date}</h6>
+						<div class="row list-label">
+							<h6 class="label">
+								<span class="badge badge-secondary"><a href="blog?label=" style="color: {$mode == 'night' ? themeNight[1] : '#343434'}">Website</a></span>
+								&nbsp;
+								<span class="badge badge-secondary"><a href="blog?label=" style="color: {$mode == 'night' ? themeNight[1] : '#343434'}">Programing</a></span>
+							</h6>
+						</div>
 					</div>
-				</div>
-			</a>
-
-			<a href="e" class="wrap-post">
-				<div class="card post {hover_post}" style="background-color: {$mode == 'night' ? themeNight[0] : '#f1f1f194'}">
-					<h1 class="title">Amet laboris irure officia in esse laborum sit ut deserunt dolor proident sit velit.</h1>
-					<h6 class="date">Thursday, &nbsp;March 26th 2020&nbsp; (5 days ago)</h6>
-					<div class="row list-label">
-						<h6 class="label">
-							<span class="badge badge-secondary"><a href="blog?label=" style="color: {$mode == 'night' ? themeNight[1] : '#343434'}">Website</a></span>
-							&nbsp;
-							<span class="badge badge-secondary"><a href="blog?label=" style="color: {$mode == 'night' ? themeNight[1] : '#343434'}">Programing</a></span>
-						</h6>
-					</div>
-				</div>
-			</a>
+				</a>
+			{/each}
 		</div>
 	</div>
 </div>

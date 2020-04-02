@@ -9,10 +9,16 @@
 <script>
 	import {mode} from '../../store'
 	import {getContext} from 'svelte'
+	import {css} from 'emotion'
 
 	export let posts
-	console.log(posts)
 	let themeNight = getContext('themeNight')
+
+	$: hover_post = css`
+		&:hover h5, &:hover .title{
+			text-decoration: underline;
+		}
+	`
 </script>
 
 <style>
@@ -40,6 +46,7 @@
 	.latest-post .title{
 		padding: 5px;
 		padding-left: 10px;
+		padding-bottom: 10px;
 	}
 
 	.text-latest{
@@ -49,6 +56,10 @@
 	.container-post{
 		padding-left: 120px;
 		padding-right: 120px;
+	}
+
+	.container-post .wrap-post{
+		text-decoration: none;
 	}
 
 	.line-start-other-post1{
@@ -77,6 +88,11 @@
 		margin-top: 7px;
 	}
 
+	.older-post h5{
+		padding-left: 10px;
+		padding-bottom: 10px;
+	}
+
 	.card .listLabel .label .badge{
 		background-color: transparent;
 		font-weight: 600;
@@ -90,6 +106,10 @@
 		margin-right: 5px;
 		font-size: 14px;
 	}
+
+	.container-fluid{
+		margin-top: 8%;
+	}
 </style>
 
 <svelte:head>
@@ -101,70 +121,40 @@
 	<div class="listPost">
 		<div class="container container-post">
 			<h3 class="text-latest">Latest Post</h3>
-			<div class="row card latest-post" style="background-color: {$mode == 'night' ? themeNight[0] : 'white'}; {$mode == 'night' ? 'border-color: white;' : ''}">
-				<h6 class="date">Thursday, &nbsp;March 26 2020&nbsp; (5 days ago)</h6>
-				<h4 class="title" style="color: {$mode == 'night' ? 'white' : 'black'}">Qui consequat sit officia qui consectetur sunt ut excepteur irure dolore consectetur sunt esse.</h4>
-				<div class="row listLabel">
-					<h6 class="label" style="color: {$mode == 'night' ? 'white' : 'black'}">
-						<span class="badge badge-secondary"><a href="blog?label=" style="color: {$mode == 'night' ? 'white' : 'black'}">Website</a></span>
-						&nbsp;
-						<span class="badge badge-secondary"><a href="blog?label=" style="color: {$mode == 'night' ? 'white' : 'black'}">Programing</a></span>
-					</h6>
+			<a href="blog/{posts[0].slug}" class="wrap-post">
+				<div class="row card latest-post {hover_post}" style="background-color: {$mode == 'night' ? themeNight[0] : 'white'}; {$mode == 'night' ? 'border-color: white;' : ''}">
+					<h6 class="date">{posts[0].date}</h6>
+					<h4 class="title" style="color: {$mode == 'night' ? 'white' : 'black'}">{posts[0].title}</h4>
+					<div class="row listLabel">
+						<h6 class="label" style="color: {$mode == 'night' ? 'white' : 'black'}">
+							{#each posts[0].label.split(', ') as label}
+								<span class="badge badge-secondary"><a href="blog?label=" style="color: {$mode == 'night' ? 'white' : 'black'}">{label}</a></span>
+							{/each}
+						</h6>
+					</div>
 				</div>
-			</div>
+			</a>
+
 			<div class="row">
 				<div class="row line-start-other-post1" style="background-color: {$mode == 'night' ? themeNight[1] : '#343434'}"></div>
 				<h5 class="text-older">Older Post</h5>
 			</div>
 
-			<div class="row card post post-first" style="background-color: {$mode == 'night' ? themeNight[0] : 'white'}; {$mode == 'night' ? 'border-color: white;' : ''}">
-				<h6 class="date">Thursday, &nbsp;March 26th 2020&nbsp; (5 days ago)</h6>
-				<h5 style="color: {$mode == 'night' ? 'white' : 'black'}">Qui consequat sit officia qui consectetur sunt ut excepteur irure dolore consectetur sunt esse.</h5>
-				<div class="row listLabel">
-					<h6 class="label" style="color: {$mode == 'night' ? 'white' : 'black'}">
-						<span class="badge badge-secondary"><a href="blog?label=" style="color: {$mode == 'night' ? 'white' : 'black'}">Website</a></span>
-						&nbsp;
-						<span class="badge badge-secondary"><a href="blog?label=" style="color: {$mode == 'night' ? 'white' : 'black'}">Programing</a></span>
-					</h6>
-				</div>
-			</div>
-			
-			<div class="row card post" style="background-color: {$mode == 'night' ? themeNight[0] : 'white'}; {$mode == 'night' ? 'border-color: white;' : ''}">
-				<h6 class="date">Thursday, &nbsp;March 26th 2020&nbsp; (5 days ago)</h6>
-				<h5 style="color: {$mode == 'night' ? 'white' : 'black'}">Qui consequat sit officia qui consectetur sunt ut excepteur irure dolore consectetur sunt esse.</h5>
-				<div class="row listLabel">
-					<h6 class="label" style="color: {$mode == 'night' ? 'white' : 'black'}">
-						<span class="badge badge-secondary"><a href="blog?label=" style="color: {$mode == 'night' ? 'white' : 'black'}">Website</a></span>
-						&nbsp;
-						<span class="badge badge-secondary"><a href="blog?label=" style="color: {$mode == 'night' ? 'white' : 'black'}">Programing</a></span>
-					</h6>
-				</div>
-			</div>
-
-			
-			<div class="row card post" style="background-color: {$mode == 'night' ? themeNight[0] : 'white'}; {$mode == 'night' ? 'border-color: white;' : ''}">
-				<h6 class="date">Thursday, &nbsp;March 26th 2020&nbsp; (5 days ago)</h6>
-				<h5 style="color: {$mode == 'night' ? 'white' : 'black'}">Qui consequat sit officia qui consectetur sunt ut excepteur irure dolore consectetur sunt esse.</h5>
-				<div class="row listLabel">
-					<h6 class="label" style="color: {$mode == 'night' ? 'white' : 'black'}">
-						<span class="badge badge-secondary"><a href="blog?label=" style="color: {$mode == 'night' ? 'white' : 'black'}">Website</a></span>
-						&nbsp;
-						<span class="badge badge-secondary"><a href="blog?label=" style="color: {$mode == 'night' ? 'white' : 'black'}">Programing</a></span>
-					</h6>
-				</div>
-			</div>
-
-			<div class="row card post" style="background-color: {$mode == 'night' ? themeNight[0] : 'white'}; {$mode == 'night' ? 'border-color: white;' : ''}">
-				<h6 class="date">Thursday, &nbsp;March 26th 2020&nbsp; (5 days ago)</h6>
-				<h5 style="color: {$mode == 'night' ? 'white' : 'black'}">Qui consequat sit officia qui consectetur sunt ut excepteur irure dolore consectetur sunt esse.</h5>
-				<div class="row listLabel">
-					<h6 class="label" style="color: {$mode == 'night' ? 'white' : 'black'}">
-						<span class="badge badge-secondary"><a href="blog?label=" style="color: {$mode == 'night' ? 'white' : 'black'}">Website</a></span>
-						&nbsp;
-						<span class="badge badge-secondary"><a href="blog?label=" style="color: {$mode == 'night' ? 'white' : 'black'}">Programing</a></span>
-					</h6>
-				</div>
-			</div>
+			{#each posts.slice(1) as post, key}
+				<a href="blog/{post.slug}" class="wrap-post">
+					<div class:post-first="{key == 0}" class="row card post older-post {hover_post}" style="background-color: {$mode == 'night' ? themeNight[0] : 'white'}; {$mode == 'night' ? 'border-color: white;' : ''}">
+						<h6 class="date">{post.date}</h6>
+						<h5 style="color: {$mode == 'night' ? 'white' : 'black'}">{post.title}</h5>
+						<div class="row listLabel">
+							<h6 class="label" style="color: {$mode == 'night' ? 'white' : 'black'}">
+								{#each post.label.split(', ') as label}
+									<span class="badge badge-secondary"><a href="blog?label=" style="color: {$mode == 'night' ? 'white' : 'black'}">{label}</a></span>
+								{/each}
+							</h6>
+						</div>
+					</div>
+				</a>
+			{/each}
 		</div>
 	</div>
 </div>

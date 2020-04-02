@@ -3,8 +3,8 @@
 	import {onMount, setContext} from 'svelte'
 	import {createCookie, getCookie} from '../cookie'
 	import {mode} from '../store'
+	
 	export let segment
-	console.log(segment)
 
 	let changeMode
 	let themeNight = ['#131418', '#f0f8fe']
@@ -146,7 +146,7 @@
 </style>
 
 <div class="wrap" style="background-color: {$mode == 'night' ? themeNight[0] : 'white'}">
-	<Nav on:adjust={changeMode} mode={$mode} themeNight={themeNight} on:nav={show_transition()} />
+	<Nav on:adjust={changeMode} segment={segment} mode={$mode} themeNight={themeNight} on:nav={show_transition()} />
 	<main>
 		<div class="sosmed">
 			<div class="row">
@@ -183,7 +183,7 @@
 		</div>
 
 		<div class="footer" style="color: {$mode == 'night' ? themeNight[1] : '#343434'};">
-			<p>Built by Firman Justisio Lestari © 2019</p>
+			<p>Built by Firman Justisio Lestari © 2020</p>
 		</div>
 	</main>
 </div>

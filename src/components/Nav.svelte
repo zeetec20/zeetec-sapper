@@ -1,14 +1,12 @@
 <script>
 	import {createEventDispatcher, onMount} from 'svelte'
 	import {mode} from '../store'
+	import {css} from 'emotion'
+	
 	export let themeNight
-
+	export let segment
+	
 	const dispatch = createEventDispatcher();
-	let ready = false
-
-	onMount(async () => {
-		ready = true
-	})
 
 	function buttonAdjust() {
 		dispatch('adjust', {})
@@ -23,6 +21,10 @@
 	}
 
 	let navbar = false
+	let navbar_arrow = [false, false, false, false]
+	$: picture_navbar = css`
+		background-image: url('${segment == undefined ? 'home.jpg' : segment == 'blog' ? 'blog.jpg' : segment == 'contact' ? 'contact.jpg' : '' }');
+	`
 </script>
 
 <style>
@@ -33,6 +35,10 @@
 		font-family: ubuntu !important;
 		/* padding-left: 95px;
 		padding-right: 95px; */
+		z-index: 3;
+		position: fixed;
+		border: none;
+		width: 100%;
 	}
 
 	nav ul {
@@ -94,25 +100,61 @@
 	}
 
 	.navbar{
+		padding-top: 8%;
 		position: fixed;
 		width: 100%;
 		height: 100%;
 		z-index: 2;
 		margin-left: -100%;
 		transition: all 0.8s;
+		overflow: hidden;
 	}
 
 	.navbar ul{
 		list-style: none;
+		margin-top: -40px;
+		margin-left: 60px;
+	}
+
+	.navbar li{
+		margin-bottom: 50px;
 	}
 
 	.navbar .menu{
-		margin-bottom: 30px;
-		font-size: 45px;
+		/* margin-bottom: 180px; */
+		font-size: 35px;
+		text-decoration: none;
+	}
+
+	.navbar .menu:hover{
+		font-weight: bold;
+	}
+
+	.picture{
+		position: absolute;
+		right: 0;
+		width: 310px;
+		height: 420px;
+		top: 0;
+		bottom: 0;
+		margin: auto;
+		margin-right: 120px;
+		background-size: auto 100%;
+		background-position: center;
+		background-repeat: no-repeat;
+		/* filter: grayscale(100%); */
+		border: solid 3px;
+	}
+
+	.picture .text{
+		padding: 10px;
+		padding-left: 14px;
+		color: white;
+		font-weight: bold;
 	}
 </style>
 
-<nav style="{navbar ? 'border: none;' : ''}">
+<nav id="nav">
 	<ul>
 		<li><h6 class="menu"><a href="/" style="color: {$mode == 'night' ? themeNight[1] : '#343434'} !important">Zeetec</a></h6></li>
 		<li class="right"><h6 class="menu">
@@ -125,19 +167,24 @@
 		<li class="right" style="{navbar ? 'display: none;' : ''}"><h6 class="menu" style="color: {$mode == 'night' ? themeNight[1] : '#343434'}" on:click={buttonAdjust}><i class="fas fa-sun"></i></h6></li>
 	</ul>
 </nav>
+
 <div class="navbar" style="{navbar ? 'margin-left: 0%;' : ''} background-color: {$mode == 'night' ? `${themeNight[0]};` : 'white;'}">
 	<ul>
 		<li>
-			<a href="/" class="menu" on:click={() => {navbar = false}} style="color: {$mode == 'night' ? themeNight[1] : '#343434'} !important;">Home</a>
+			<a on:mouseenter={() => navbar_arrow[0] = true} on:mouseleave={() => navbar_arrow[0] = false} href="/" class="menu" on:click={() => {navbar = false}} style="color: {$mode == 'night' ? themeNight[1] : '#343434'} !important;"><span style="{navbar_arrow[0] ? '' : 'display: none;'}">></span> Home&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
 		</li>
 		<li>
-			<a href="/blog" class="menu" on:click={() => {navbar = false}} style="color: {$mode == 'night' ? themeNight[1] : '#343434'} !important;">Blog</a>
+			<a on:mouseenter={() => navbar_arrow[1] = true} on:mouseleave={() => navbar_arrow[1] = false} href="/blog" class="menu" on:click={() => {navbar = false}} style="color: {$mode == 'night' ? themeNight[1] : '#343434'} !important;"><span style="{navbar_arrow[1] ? '' : 'display: none;'}">></span> Blog&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
 		</li>
 		<li>
-			<a href="/" class="menu" on:click={() => {navbar = false}} style="color: {$mode == 'night' ? themeNight[1] : '#343434'} !important;">Contact</a>
+			<a on:mouseenter={() => navbar_arrow[2] = true} on:mouseleave={() => navbar_arrow[2] = false} href="/contact" class="menu" on:click={() => {navbar = false}} style="color: {$mode == 'night' ? themeNight[1] : '#343434'} !important;"><span style="{navbar_arrow[2] ? '' : 'display: none;'}">></span> Contact&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
 		</li>
 		<li>
-			<a href="/" class="menu" on:click={() => {navbar = false}} style="color: {$mode == 'night' ? themeNight[1] : '#343434'} !important;">About Blog</a>
+			<a on:mouseenter={() => navbar_arrow[3] = true} on:mouseleave={() => navbar_arrow[3] = false} href="/" class="menu" on:click={() => {navbar = false}} style="color: {$mode == 'night' ? themeNight[1] : '#343434'} !important;"><span style="{navbar_arrow[3] ? '' : 'display: none;'}">></span> About Me&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
 		</li>
 	</ul>
+
+	<div class="picture {picture_navbar}" style="border-color: {$mode == 'night' ? themeNight[1] : themeNight[0]}">
+		<h4 class="text">{segment == undefined ? 'Home' : segment == 'blog' ? 'Blog' : segment == 'contact' ? 'Contact' : 'Not Found'}</h4>
+	</div>
 </div>
