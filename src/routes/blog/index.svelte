@@ -1,14 +1,16 @@
 <script context="module">
 	export async function preload(page, session) {
-		const res = await this.fetch('blog.json')
+		console.log(session);
+		
+		const res = await this.fetch('api/blog')
 		const posts = await res.json()
 		return {posts}
 	}
 </script>
 
 <script>
-	import {mode} from '../../store'
-	import {getContext} from 'svelte'
+	import {mode, loading} from '../../store'
+	import {getContext, onMount} from 'svelte'
 	import {css} from 'emotion'
 
 	export let posts
@@ -19,6 +21,10 @@
 			text-decoration: underline;
 		}
 	`
+
+	onMount(async () => {
+		loading.set(false)
+	})
 </script>
 
 <style>

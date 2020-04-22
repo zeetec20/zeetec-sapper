@@ -148,32 +148,34 @@
 <div class="wrap" style="background-color: {$mode == 'night' ? themeNight[0] : 'white'}">
 	<Nav on:adjust={changeMode} segment={segment} mode={$mode} themeNight={themeNight} on:nav={show_transition()} />
 	<main>
-		<div class="sosmed">
-			<div class="row">
-				<a class="icon-sosmed" href="https://www.facebook.com/firman.lestari.12" target="_blank" rel="noopener noreferrer" style="color: {$mode == 'night' ? 'yellow' : 'black'}; background-color: {$mode == 'night' ? 'black' : 'yellow'}">
-					<i class="fab fa-facebook-square"></i>
-				</a>
-			</div>
+		{#if segment != 'contact'}
+			<div class="sosmed">
+				<div class="row">
+					<a class="icon-sosmed" href="https://www.facebook.com/firman.lestari.12" target="_blank" rel="noopener noreferrer" style="color: {$mode == 'night' ? 'yellow' : 'black'}; background-color: {$mode == 'night' ? 'black' : 'yellow'}">
+						<i class="fab fa-facebook-square"></i>
+					</a>
+				</div>
 
-			<div class="row">
-				<a class="icon-sosmed" href="https://github.com/zeetec20" target="_blank" rel="noopener noreferrer" style="color: {$mode == 'night' ? 'yellow' : 'black'}; background-color: {$mode == 'night' ? 'black' : 'yellow'}">
-					<i class="fab fa-github"></i>
-				</a>
-			</div>
+				<div class="row">
+					<a class="icon-sosmed" href="https://github.com/zeetec20" target="_blank" rel="noopener noreferrer" style="color: {$mode == 'night' ? 'yellow' : 'black'}; background-color: {$mode == 'night' ? 'black' : 'yellow'}">
+						<i class="fab fa-github"></i>
+					</a>
+				</div>
 
-			<div class="row">
-				<a class="icon-sosmed" href="https://www.instagram.com/firmanjl363/" target="_blank" rel="noopener noreferrer" style="color: {$mode == 'night' ? 'yellow' : 'black'}; background-color: {$mode == 'night' ? 'black' : 'yellow'}">
-					<i class="fab fa-instagram"></i>
-				</a>
-			</div>
+				<div class="row">
+					<a class="icon-sosmed" href="https://www.instagram.com/firmanjl363/" target="_blank" rel="noopener noreferrer" style="color: {$mode == 'night' ? 'yellow' : 'black'}; background-color: {$mode == 'night' ? 'black' : 'yellow'}">
+						<i class="fab fa-instagram"></i>
+					</a>
+				</div>
 
-			<div class="row">
-				<a class="icon-sosmed" href="https://twitter.com/firmanjusles" target="_blank" rel="noopener noreferrer" style="color: {$mode == 'night' ? 'yellow' : 'black'}; background-color: {$mode == 'night' ? 'black' : 'yellow'}">
-					<i class="fab fa-twitter"></i>
-				</a>
+				<div class="row">
+					<a class="icon-sosmed" href="https://twitter.com/firmanjusles" target="_blank" rel="noopener noreferrer" style="color: {$mode == 'night' ? 'yellow' : 'black'}; background-color: {$mode == 'night' ? 'black' : 'yellow'}">
+						<i class="fab fa-twitter"></i>
+					</a>
+				</div>
 			</div>
-		</div>
-		
+		{/if}
+
 		<slot></slot>
 
 		<div class="transition">

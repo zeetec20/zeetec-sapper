@@ -13,7 +13,7 @@
 <script>
 	import {onMount, getContext} from 'svelte'
 	import {getCookie} from '../cookie'
-	import {mode} from '../store'
+	import {mode, loading} from '../store'
 	import {css} from 'emotion'
 
 	export let posts
@@ -27,6 +27,7 @@
 		let i = 0
 		let speedType = 180
 
+		loading.set(false)
 		function typeWriter() {
 			let name = 'Firman Justisio Lestari'
 			if (i < name.length) {

@@ -48,7 +48,7 @@ const getAllPosts = () => fs.readdirSync("content").sort().map(fileName => {
     return data
 });
 
-export function get(req, res) {
+module.exports = (req, res) => {
     res.writeHead(200, {
         "Content-Type": "application/json"
     });

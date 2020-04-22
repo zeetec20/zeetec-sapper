@@ -1,6 +1,6 @@
 <script>
 	import {createEventDispatcher, onMount} from 'svelte'
-	import {mode} from '../store'
+	import {mode, loading} from '../store'
 	import {css} from 'emotion'
 	
 	export let themeNight
@@ -16,8 +16,12 @@
 		dispatch('nav', {})
 	}
 
-	function buttonSearch(params) {
+	function buttonSearch() {
 		dispatch('search', {})
+	}
+
+	function enableLoading() {
+		loading.set(true)
 	}
 
 	let navbar = false
@@ -35,10 +39,11 @@
 		font-family: ubuntu !important;
 		/* padding-left: 95px;
 		padding-right: 95px; */
+		background-color: black;
 		z-index: 3;
 		position: fixed;
 		border: none;
-		width: 100%;
+		width: 100% !important;
 	}
 
 	nav ul {
@@ -93,6 +98,25 @@
 
 	nav .icon span:nth-child(3){
 		margin-top: 5px;
+	}
+
+	nav .loading{
+		background-color: white;
+		height: 1px;
+		width: 100%;
+		position: absolute;
+		left: 0;
+		transition: all 0.5s;
+		animation: loading_animation 0.6s infinite;
+	}
+
+	@keyframes loading_animation{
+		from{
+			left: -100%;
+		}
+		to{
+			left: 100%;
+		}
 	}
 
 	.right{
@@ -154,9 +178,9 @@
 	}
 </style>
 
-<nav id="nav">
+<nav id="nav" style="background-color: {$mode == 'night' ? themeNight[0] : 'white'}">
 	<ul>
-		<li><h6 class="menu"><a href="/" style="color: {$mode == 'night' ? themeNight[1] : '#343434'} !important">Zeetec</a></h6></li>
+		<li><h6 class="menu"><a href="/" style="color: {$mode == 'night' ? themeNight[1] : '#343434'} !important" on:click={enableLoading}>Zeetec</a></h6></li>
 		<li class="right"><h6 class="menu">
 			<div class="icon" on:click={() => {setTimeout(() => {navbar = !navbar}, 400); buttonNav()}}>
 				<span style="background-color: {$mode == 'night' ? themeNight[1] : '#343434'}"></span>
@@ -166,21 +190,22 @@
 		</h6></li>
 		<li class="right" style="{navbar ? 'display: none;' : ''}"><h6 class="menu" style="color: {$mode == 'night' ? themeNight[1] : '#343434'}" on:click={buttonAdjust}><i class="fas fa-sun"></i></h6></li>
 	</ul>
+	<div class="loading" style="background-color: {$mode == 'night' ? themeNight[1] : '#131418'}; {$loading ? '' : 'display: none'}"></div>
 </nav>
 
 <div class="navbar" style="{navbar ? 'margin-left: 0%;' : ''} background-color: {$mode == 'night' ? `${themeNight[0]};` : 'white;'}">
 	<ul>
 		<li>
-			<a on:mouseenter={() => navbar_arrow[0] = true} on:mouseleave={() => navbar_arrow[0] = false} href="/" class="menu" on:click={() => {navbar = false}} style="color: {$mode == 'night' ? themeNight[1] : '#343434'} !important;"><span style="{navbar_arrow[0] ? '' : 'display: none;'}">></span> Home&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+			<a on:mouseenter={() => navbar_arrow[0] = true} on:mouseleave={() => navbar_arrow[0] = false} href="/" class="menu" on:click={() => {navbar = false; enableLoading()}} style="color: {$mode == 'night' ? themeNight[1] : '#343434'} !important;"><span style="{navbar_arrow[0] ? '' : 'display: none;'}">></span> Home&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
 		</li>
 		<li>
-			<a on:mouseenter={() => navbar_arrow[1] = true} on:mouseleave={() => navbar_arrow[1] = false} href="/blog" class="menu" on:click={() => {navbar = false}} style="color: {$mode == 'night' ? themeNight[1] : '#343434'} !important;"><span style="{navbar_arrow[1] ? '' : 'display: none;'}">></span> Blog&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+			<a on:mouseenter={() => navbar_arrow[1] = true} on:mouseleave={() => navbar_arrow[1] = false} href="/blog" class="menu" on:click={() => {navbar = false; enableLoading()}} style="color: {$mode == 'night' ? themeNight[1] : '#343434'} !important;"><span style="{navbar_arrow[1] ? '' : 'display: none;'}">></span> Blog&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
 		</li>
 		<li>
-			<a on:mouseenter={() => navbar_arrow[2] = true} on:mouseleave={() => navbar_arrow[2] = false} href="/contact" class="menu" on:click={() => {navbar = false}} style="color: {$mode == 'night' ? themeNight[1] : '#343434'} !important;"><span style="{navbar_arrow[2] ? '' : 'display: none;'}">></span> Contact&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+			<a on:mouseenter={() => navbar_arrow[2] = true} on:mouseleave={() => navbar_arrow[2] = false} href="/contact" class="menu" on:click={() => {navbar = false; enableLoading()}} style="color: {$mode == 'night' ? themeNight[1] : '#343434'} !important;"><span style="{navbar_arrow[2] ? '' : 'display: none;'}">></span> Contact&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
 		</li>
 		<li>
-			<a on:mouseenter={() => navbar_arrow[3] = true} on:mouseleave={() => navbar_arrow[3] = false} href="/" class="menu" on:click={() => {navbar = false}} style="color: {$mode == 'night' ? themeNight[1] : '#343434'} !important;"><span style="{navbar_arrow[3] ? '' : 'display: none;'}">></span> About Me&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+			<a on:mouseenter={() => navbar_arrow[3] = true} on:mouseleave={() => navbar_arrow[3] = false} href="/" class="menu" on:click={() => {navbar = false; enableLoading()}} style="color: {$mode == 'night' ? themeNight[1] : '#343434'} !important;"><span style="{navbar_arrow[3] ? '' : 'display: none;'}">></span> About Me&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
 		</li>
 	</ul>
 
