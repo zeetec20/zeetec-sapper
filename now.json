@@ -1,6 +1,6 @@
 {
     "env": {
         "api_key": "Api123Key*",
-        "mongodb_uri": "mongodb+srv://zeetec:Zeetec123321@cluster0-wkh9m.mongodb.net/test?retryWrites=true&w=majority"
+        "mongodb_uri": "mongodb+srv://zeetec:Zeetec123321@cluster0-wkh9m.mongodb.net/test?authSource=admin&replicaSet=Cluster0-shard-0&w=majority&readPreference=primary&appname=MongoDB%20Compass&retryWrites=true&ssl=true"
     }
 }
